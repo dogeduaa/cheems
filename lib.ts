@@ -3,7 +3,7 @@ export function uwuJs(data: { output; body: {}; }): void {
   const elements = data.body;
 
   for (const element in elements) {
-    if (element === "$") {
+    if (element === "$util") {
       const elementData = elements[element];
 
       for (const styleName in elementData) {
@@ -15,6 +15,22 @@ export function uwuJs(data: { output; body: {}; }): void {
           link.setAttribute('type', 'text/css');
           link.setAttribute('href', elementData[styleName]);
           document.head.appendChild(link);
+        } else if (styleName === "css") {
+          const stylesheet = document.createElement('style');
+          stylesheet.innerHTML = elementData[styleName];
+          document.head.appendChild(stylesheet);
+        } else if (styleName === "title") {
+          document.title = elementData[styleName];
+        } else if (styleName === "favicon") {
+          const link = document.createElement('link');
+          link.setAttribute('rel', 'shortcut icon');
+          link.setAttribute('type', elementData[styleName].type);
+          link.setAttribute('href', elementData[styleName].href);
+          document.head.appendChild(link);
+        } else if (styleName === "importScript") {
+          const script = document.createElement('script');
+          script.setAttribute('src', elementData[styleName]);
+          document.head.appendChild(script);
         } else {
           document.querySelectorAll("*").forEach(elem => {
             if (elem.tagName.toLowerCase() !== "head" && elem.tagName.toLowerCase() !== "meta" && elem.tagName.toLowerCase() !== "title" && elem.tagName.toLowerCase() !== "script") {
