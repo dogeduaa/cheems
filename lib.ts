@@ -1,8 +1,32 @@
-export function Cheems(data: { output; body: {}; }): void {
+export function uwuJs(data: { output; body: {}; }): void {
   const root = data.output;
   const elements = data.body;
 
   for (const element in elements) {
+    if (element === "$") {
+      const elementData = elements[element];
+
+      for (const styleName in elementData) {
+        const styleValue = elementData[styleName];
+        
+        if (styleName === "fontImport") {
+          const link = document.createElement('link');
+          link.setAttribute('rel', 'stylesheet');
+          link.setAttribute('type', 'text/css');
+          link.setAttribute('href', elementData[styleName]);
+          document.head.appendChild(link);
+        } else {
+          document.querySelectorAll("*").forEach(elem => {
+            if (elem.tagName.toLowerCase() !== "head" && elem.tagName.toLowerCase() !== "meta" && elem.tagName.toLowerCase() !== "title" && elem.tagName.toLowerCase() !== "script") {
+              (elem as HTMLElement).style[styleName.toString()] = styleValue.toString();
+            }
+          });
+        }
+      }
+      
+      continue;
+    }
+
     const elementData = elements[element];
     const createdElement = document.createElement(element);
     
@@ -56,7 +80,6 @@ export function Cheems(data: { output; body: {}; }): void {
 
         output.appendChild(newCreatedElement); 
       }
-
     }
 
     if ('children' in elementData) {
