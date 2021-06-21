@@ -16,7 +16,8 @@ const html = {
         type: "image/png",
         href: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Transgender_Pride_flag.svg/1200px-Transgender_Pride_flag.svg.png"
       },
-      importScript: "https://code.jquery.com/jquery-3.6.0.js"
+      importScripts: ["https://code.jquery.com/jquery-3.6.0.js"],
+      importCss: ['style.css'],
     },
     div: {
       attributes: {
@@ -34,7 +35,7 @@ const html = {
             padding: "20px 0",
             boxShadow: "0px 0px 7px 0px rgba(0,0,0,0.3)",
             display: "flex",
-            alignItems: "center"
+            alignItems: "center",
           },
           children: {
             nav: {
@@ -43,6 +44,9 @@ const html = {
                 margin: "auto",
                 display: "flex",
                 alignItems: "center"
+              },
+              mediaQueries: {
+                fontFamily: true
               },
               children: {
                 div: {
